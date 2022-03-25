@@ -46,7 +46,7 @@
     "moment": "^2.18.1",
     "nodemon": "^1.11.0",
     "password-validator": "^4.0.0",
-    "zone.js": "^0.11.4",
+    "zone.js": "^0.11.5",
     "rxjs": "6.6.7",
     "rxjs-compat": "^6.0.0-rc.0"
   },
