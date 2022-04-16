@@ -1,5 +1,6 @@
 var crypto = require("crypto");
 
+// deepcode ignore NoHardcodedPasswords: Just a training material
 var password = "monkey";
 
 var aliceSalt = 1;
