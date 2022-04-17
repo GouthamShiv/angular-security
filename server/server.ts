@@ -4,11 +4,15 @@ import * as fs from "fs";
 import * as https from "https";
 import { readAllLessons } from "./read-all-lessons.route";
 import { createUser } from "./create-user.route";
+import helmet from "helmet";
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
-const app: Application = express().disable("x-powered-by");
+const app: Application = express().disable("X-Powered-By");
 
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(helmet());
 
 const commandLineArgs = require("command-line-args");
 
