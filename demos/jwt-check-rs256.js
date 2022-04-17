@@ -1,20 +1,14 @@
-
-var jwt = require('jsonwebtoken');
-var fs = require('fs');
-
+var jwt = require("jsonwebtoken");
+var fs = require("fs");
 
 // verify an existing JWT
-var existingToken = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWxpY2UiLCJpYXQiOjE1MDI5MDMxNTcsImV4cCI6MTUwMjkwMzI3Nywic3ViIjoiMSJ9.KQJ-f3r4TNCLVrox1JaL5pxQAM6vSw4CNKj1lCf3HDWXGdIHW5rgD5odKpNBjrkbl1smjEL_ClLnFwG_iGDPKvu2bqktcrbXwi1-XUrY-jDKLkpoEHL2C9tGYnyDRl6Pg1SP97Hl-VWkGNyekYMerL8vh0RwgcK7y8UsuA33WgnP1DtfhKIghwcd493ARN4nBvmMJ11Zk35c7FBIN2w4Xl4ny8RU4l0_xy5DBF3JAKV1jilTHOKEvsrY8Ry3qRKaxxR6-QE_pfGOte3BRlt6544BUul1yI662tVAn1R28KXKnwCGAwo_HZ1kC-OrxmsjoXI4HDuHG2k5eRX-QC_W4Q';
+var existingToken =
+  "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiQWxpY2UiLCJpYXQiOjE2NTI3MDA0NjMsImV4cCI6MTY1MjcwMDU4Mywic3ViIjoiMSJ9.WLIYPgK1J8ZT_hahAeLA-vOuSVGfDkM_41Lr4eDhIqTqBuA9xuevCkDMtPmjEp9RGUgB_uZX4OZSa6rWM6NzvDMOzyQ88wCu91V31ogV4MnlixaEa4cOZ13LXbTHsTsvvqGbUb4VJPz2-g9JIPWMPgYpTtXw4bGtbmdJ3-7-JKXoP6x5zoytjeJhabOkLC6cynKX3yavxUYl8A_bKuTxjkTC0PgihovAdgWWezmr8SO0nn4G0RpRhr-emCjnYrl5qABfHqMkgNC3cAJrhuZqiaslToLuCDbgKr8zrQqOBbcJwYEF02y2pZ0CmS5-h8EYLuDEf_LQ_mldc5n_QjfGmg";
 
-
-var publicKey = fs.readFileSync('./demos/public.key');
-
+var publicKey = fs.readFileSync("./demos/public.key");
 
 console.log("verifying");
 
 const verify = jwt.verify(existingToken, publicKey);
 
-
-
 console.log("Decoded JWT:", verify);
-

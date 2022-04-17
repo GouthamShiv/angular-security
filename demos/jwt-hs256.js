@@ -1,24 +1,15 @@
+var jwt = require("jsonwebtoken");
 
-var jwt = require('jsonwebtoken');
-
-
-
-var secretKey = 'secret-key';
+// deepcode ignore HardcodedNonCryptoSecret: this is just a demo, deepcode ignore HardcodedSecret: this is just a demo
+var secretKey = "secret-key";
 
 var payload = {
-  name: 'Alice'
+  name: "Alice",
 };
-
 
 // create a JWT
 var newToken = jwt.sign(payload, secretKey, {
-    algorithm: 'HS256'
+  algorithm: "HS256",
 });
 
 console.log("JWT created:", newToken);
-
-
-
-
-
-
