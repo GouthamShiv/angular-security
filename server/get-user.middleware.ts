@@ -14,6 +14,8 @@ export function retrieveUserIdFromRequest(
         console.error(err);
         next();
       });
+  } else {
+    next();
   }
 }
 
