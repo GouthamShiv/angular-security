@@ -6,6 +6,7 @@ import { readAllLessons } from "./read-all-lessons.route";
 import { createUser } from "./create-user.route";
 import helmet from "helmet";
 import { getUser } from "./get-user.route";
+import { logout } from "./logout.route";
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
@@ -29,6 +30,8 @@ app.route("/api/lessons").get(readAllLessons);
 app.route("/api/signup").post(createUser);
 
 app.route("/api/user").get(getUser);
+
+app.route("/api/logout").post(logout);
 
 if (options.secure) {
   const httpsServer = https.createServer(

@@ -17,6 +17,10 @@ class SessionStore {
     const session = this.sessions[sessionId];
     return session && session.isValid();
   }
+
+  clearSession(sessionId: string) {
+    delete this.sessions[sessionId];
+  }
 }
 
 export const sessionStore = new SessionStore();

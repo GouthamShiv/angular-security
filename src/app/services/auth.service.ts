@@ -35,4 +35,11 @@ export class AuthService {
       tap((user) => this.subject.next(user))
     );
   }
+
+  logout(): Observable<any> {
+    return this.http.post("/api/logout", null).pipe(
+      shareReplay(),
+      tap((user) => this.subject.next(ANONYMOUS_USER))
+    );
+  }
 }
