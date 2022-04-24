@@ -42,4 +42,11 @@ export class AuthService {
       tap((user) => this.subject.next(ANONYMOUS_USER))
     );
   }
+
+  login(email: string, password: string) {
+    return this.http.post<User>("/api/login", { email, password }).pipe(
+      shareReplay(),
+      tap((user) => this.subject.next(user))
+    );
+  }
 }
