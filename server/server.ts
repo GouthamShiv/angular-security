@@ -2,13 +2,21 @@ import * as express from "express";
 import { Application } from "express";
 import * as fs from "fs";
 import * as https from "https";
-import { createUser } from "./create-user.route";
 import { readAllLessons } from "./read-all-lessons.route";
-
+import { createUser } from "./create-user.route";
+import { getUser } from "./get-user.route";
+import { logout } from "./logout.route";
+import { login } from "./login.route";
+import { retrieveUserIdFromRequest } from "./get-user.middleware";
+import { isUerAuthenticated } from "./auth.middleware";
+import { checkCsrfToken } from "./csrf.middleware";
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
-const app: Application = express();
+const app: Application = express().disable("x-powered-by");
 
+app.use(cookieParser());
+app.use(retrieveUserIdFromRequest);
 app.use(bodyParser.json());
 
 const commandLineArgs = require("command-line-args");
@@ -20,9 +28,15 @@ const optionDefinitions = [
 const options = commandLineArgs(optionDefinitions);
 
 // REST API
-app.route("/api/lessons").get(readAllLessons);
+app.route("/api/lessons").get(isUerAuthenticated, readAllLessons);
 
 app.route("/api/signup").post(createUser);
+
+app.route("/api/user").get(getUser);
+
+app.route("/api/logout").post(isUerAuthenticated, checkCsrfToken, logout);
+
+app.route("/api/login").post(login);
 
 if (options.secure) {
   const httpsServer = https.createServer(

@@ -1,6 +1,6 @@
 import * as _ from "lodash";
 import { LESSONS, USERS } from "./database-data";
-import { dbUser } from "./db-users";
+import { DbUser } from "./db-user";
 
 class InMemoryDatabase {
   userCounter = 0;
@@ -9,14 +9,51 @@ class InMemoryDatabase {
     return _.values(LESSONS);
   }
 
-  createUser(email: string, password: string) {
-    const id = ++this.userCounter;
-    const user: dbUser = {
+  createUser(email: string, passwordDigest: string) {
+    const usersPerEmail = _.keyBy(_.values(USERS), "email");
+
+    if (usersPerEmail[email]) {
+      const message = "An user already exists with email " + email;
+      console.error(message);
+      throw new Error(message);
+    }
+
+    this.userCounter++;
+
+    const id = this.userCounter;
+
+    const user: DbUser = {
       id,
       email,
-      password,
+      passwordDigest,
     };
+
     USERS[id] = user;
+
+    console.log(USERS);
+
+    return user;
+  }
+
+  findUserByEmail(email: string): DbUser {
+    const users = _.values(USERS);
+
+    return _.find(users, (user) => user.email === email);
+  }
+
+  findUserById(userId: string): DbUser {
+    let user = undefined;
+
+    if (userId) {
+      console.log("looking for userId ", userId);
+
+      const users = _.values(USERS);
+
+      user = _.find(users, (user) => user.id.toString() === userId);
+
+      console.log("user data found:", user);
+    }
+
     return user;
   }
 }

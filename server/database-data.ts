@@ -1,5 +1,10 @@
 import { dbUser } from "./db-users";
 
+import {DbUser} from "./db-user";
+
+export const USERS: {[key:number]:DbUser} = {};
+
+
 export const LESSONS = {
   1: {
     id: 1,
