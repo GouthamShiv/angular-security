@@ -1,8 +1,12 @@
-import { dbUser } from "./db-users";
-
+<<<<<<< HEAD
 import {DbUser} from "./db-user";
 
-export const USERS: {[key:number]:DbUser} = {};
+=======
+import { dbUser } from "./db-users";
+>>>>>>> 01-signup
+
+
+export const USERS: { [key: number]: DbUser } = {};
 
 
 export const LESSONS = {

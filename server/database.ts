@@ -5,9 +5,45 @@ import { DbUser } from "./db-user";
 class InMemoryDatabase {
   userCounter = 0;
 
+<<<<<<< HEAD
+    userCounter = 0;
+
+    readAllLessons() {
+        return _.values(LESSONS);
+    }
+
+    createUser(email:string, authenticationId) {
+
+        const usersPerEmail = _.keyBy( _.values(USERS), "email" );
+
+        if (usersPerEmail[email]) {
+            const message = "An user already exists with email " + email;
+            console.error(message);
+            throw new Error(message);
+        }
+
+        this.userCounter++;
+
+        const id = this.userCounter;
+
+        const user: DbUser = {
+            id,
+            email,
+            authenticationId
+        };
+
+        USERS[id] = user;
+
+        console.log(USERS);
+
+        return user;
+    }
+
+=======
   readAllLessons() {
     return _.values(LESSONS);
   }
+>>>>>>> 01-signup
 
   createUser(email: string, passwordDigest: string) {
     this.userCounter++;
@@ -25,10 +61,31 @@ class InMemoryDatabase {
     return user;
   }
 
+<<<<<<< HEAD
+
+    findUserByAuthenticationId(authenticationId:string) {
+        let user = undefined;
+
+        if (authenticationId) {
+
+            console.log("looking for user with authenticationId = ", authenticationId);
+
+            const users = _.values(USERS);
+
+            user = _.find(users, user => user.authenticationId === authenticationId);
+
+            console.log("user data found:", user);
+        }
+
+        return user;
+    }
+
+=======
   findUserByEmail(email: string): DbUser {
     const users = _.values(USERS);
     return _.find(users, (user) => user.email === email);
   }
+>>>>>>> 01-signup
 }
 
 export const db = new InMemoryDatabase();
