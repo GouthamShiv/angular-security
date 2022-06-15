@@ -1,12 +1,12 @@
 import { Request, Response } from "express";
 import { db } from "./database";
-import * as argon2 from "argon2";
 import { DbUser } from "./db-user";
-import { createSessionToken, createCSRFToken } from "./security.utils";
+import * as argon2 from "argon2";
+import { sessionStore } from "./session-store";
+import { randomBytes } from "./security.utils";
 
 export function login(req: Request, res: Response) {
   const credentials = req.body;
-
   const user = db.findUserByEmail(credentials.email);
 
   if (!user) {
@@ -22,18 +22,18 @@ async function loginAndBuildResponse(
   res: Response
 ) {
   try {
-    const sessionToken = await attemptLogin(credentials, user);
-    const csrfToken = await createCSRFToken(sessionToken);
+    const sessionId = await attemptLogin(credentials, user);
 
     console.log("Login successful");
 
-    res.cookie("SESSIONID", sessionToken, { httpOnly: true, secure: true });
-    res.cookie("XSRF-TOKEN", csrfToken);
-
+    res.cookie("SESSIONID", sessionId, {
+      httpOnly: true,
+      sameSite: true,
+      secure: true,
+    });
     res.status(200).json({ id: user.id, email: user.email });
   } catch (err) {
-    console.log("Login failed!");
-
+    console.log("Login failed");
     res.sendStatus(403);
   }
 }
@@ -48,5 +48,11 @@ async function attemptLogin(credentials: any, user: DbUser) {
     throw new Error("Password Invalid");
   }
 
-  return createSessionToken(user.id.toString());
+  const sessionId = await randomBytes(32)
+    .then((bytes) => bytes.toString("hex"))
+    .catch((err) => console.log(err));
+
+  sessionStore.createSession(sessionId, user);
+
+  return sessionId;
 }
