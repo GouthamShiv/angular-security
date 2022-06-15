@@ -10,32 +10,26 @@ import {RouterModule} from "@angular/router";
 import {routesConfig} from "./routes.config";
 import {LessonsService} from "./services/lessons.service";
 import {ReactiveFormsModule} from "@angular/forms";
-
-
-
-
-
-
 import {AuthService} from "./services/auth.service";
-
-
 
 @NgModule({
   declarations: [
     AppComponent,
     LessonsComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
   ],
   imports: [
     BrowserModule,
-      HttpClientModule,
-      RouterModule.forRoot(routesConfig),
-      ReactiveFormsModule
+    HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: "XSRF-TOKEN",
+      headerName: "x-xsrf-token",
+    }),
+    RouterModule.forRoot(routesConfig),
+    ReactiveFormsModule,
   ],
   providers: [LessonsService, AuthService],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule {
-
-}
+export class AppModule {}
