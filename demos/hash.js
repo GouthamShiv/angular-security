@@ -1,14 +1,16 @@
 var crypto = require("crypto");
 
-// deepcode ignore NoHardcodedPasswords: this is just a demo
-var password = "123456789";
+// deepcode ignore NoHardcodedPasswords: Just a training material
+var password = "monkey";
 
-// var aliceSalt = 1;
-
-// var bobSalt = 2;
+var aliceSalt = 1;
+var bobSalt = 2;
 
 // we will use another hash other SHA-256 during the course, this is just for demo purposes
-var hash = crypto.createHash("sha256").update(password).digest("hex");
+var hash = crypto
+  .createHash("sha256")
+  .update(password + bobSAlt)
+  .digest("hex");
 
 console.log("The result of hashing " + password + " is:\n\n" + hash + "\n\n");
 
