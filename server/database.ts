@@ -1,11 +1,11 @@
-
-import * as _ from 'lodash';
-import {LESSONS, USERS} from "./database-data";
-import {DbUser} from "./db-user";
-
+import * as _ from "lodash";
+import { LESSONS, USERS } from "./database-data";
+import { DbUser } from "./db-user";
 
 class InMemoryDatabase {
+  userCounter = 0;
 
+<<<<<<< HEAD
     userCounter = 0;
 
     readAllLessons() {
@@ -39,33 +39,29 @@ class InMemoryDatabase {
         return user;
     }
 
+=======
+  readAllLessons() {
+    return _.values(LESSONS);
+  }
+>>>>>>> 01-signup
 
-    findUserByEmail(email:string) :DbUser {
+  createUser(email: string, passwordDigest: string) {
+    this.userCounter++;
 
-        const users = _.values(USERS);
+    const id = this.userCounter;
 
-        return _.find(users, user => user.email === email);
-    }
+    const user: DbUser = {
+      id,
+      email,
+      passwordDigest,
+    };
 
-    findUserById(userId:string) :DbUser {
+    USERS[id] = user;
 
-        let user = undefined;
+    return user;
+  }
 
-        if (userId) {
-
-            console.log("looking for userId ", userId);
-
-            const users = _.values(USERS);
-
-            user = _.find(users, user => user.id.toString() === userId);
-
-            console.log("user data found:", user);
-        }
-
-        return user;
-
-    }
-
+<<<<<<< HEAD
 
     findUserByAuthenticationId(authenticationId:string) {
         let user = undefined;
@@ -84,11 +80,12 @@ class InMemoryDatabase {
         return user;
     }
 
+=======
+  findUserByEmail(email: string): DbUser {
+    const users = _.values(USERS);
+    return _.find(users, (user) => user.email === email);
+  }
+>>>>>>> 01-signup
 }
 
-
-
-
 export const db = new InMemoryDatabase();
-
-

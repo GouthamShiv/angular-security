@@ -3,14 +3,28 @@ import { Application } from "express";
 import * as fs from "fs";
 import * as https from "https";
 import { readAllLessons } from "./read-all-lessons.route";
+<<<<<<< HEAD
 const bodyParser = require("body-parser");
 const jwksRsa = require("jwks-rsa");
 import { expressjwt } from "express-jwt";
 import { userInfo } from "./user-info.route";
 
 const app: Application = express();
+=======
+import { createUser } from "./create-user.route";
+import helmet from "helmet";
+import { getUser } from "./get-user.route";
+import { logout } from "./logout.route";
+import { login } from "./login.route";
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+
+const app: Application = express().disable("X-Powered-By");
+>>>>>>> 01-signup
 
 app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(helmet());
 
 const commandLineArgs = require("command-line-args");
 
@@ -20,6 +34,7 @@ const optionDefinitions = [
 
 const options = commandLineArgs(optionDefinitions);
 
+<<<<<<< HEAD
 const checkIfAuthenticated = expressjwt({
   algorithms: ["RS256"],
   secret: jwksRsa.expressJwtSecret({
@@ -44,6 +59,18 @@ app.use((err, req, res, next) => {
 app.route("/api/lessons").get(readAllLessons);
 
 app.route("/api/userinfo").put(userInfo);
+=======
+// REST API
+app.route("/api/lessons").get(readAllLessons);
+
+app.route("/api/signup").post(createUser);
+
+app.route("/api/user").get(getUser);
+
+app.route("/api/logout").post(logout);
+
+app.route("/api/login").post(login);
+>>>>>>> 01-signup
 
 if (options.secure) {
   const httpsServer = https.createServer(
