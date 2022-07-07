@@ -46,7 +46,7 @@
     "http-server": "^0.13.0",
     "jsonwebtoken": "^7.4.2",
     "jwks-rsa": "^2.1.4",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "nodemon": "^2.0.17",
     "password-validator": "^4.0.0",
     "rxjs": "6.3.3",
