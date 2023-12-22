@@ -47,7 +47,7 @@
     "jsonwebtoken": "^7.4.2",
     "jwks-rsa": "^2.1.4",
     "moment": "^2.29.4",
-    "nodemon": "^2.0.17",
+    "nodemon": "^2.0.19",
     "password-validator": "^4.0.0",
     "rxjs": "6.6.7",
     "rxjs-compat": "^6.0.0-rc.0",
